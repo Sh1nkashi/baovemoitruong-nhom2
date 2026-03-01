@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảo Vệ Môi Trường - Tin Học 12</title>
+    <style>
+        /* --- ĐỊNH DẠNG CHUNG (Cũ) --- */
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin: 0; color: #333; background: #f0fdf4; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000');
+            background-size: cover; color: white; text-align: center; padding: 60px 20px;
+        }
+
+        nav { background: #2d6a4f; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; font-size: 0.9em; }
+        nav a:hover { color: #d8f3dc; text-decoration: underline; }
+
+        .container { max-width: 900px; margin: auto; padding: 15px; }
+
+        section { 
+            background: white; padding: 25px; margin-bottom: 25px; 
+            border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 { color: #2d6a4f; border-bottom: 2px solid #40916c; padding-bottom: 10px; margin-top: 0; }
+
+        .grid { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+        .col { flex: 1; min-width: 250px; }
+        
+        img { width: 100%; height: auto; border-radius: 10px; transition: transform 0.3s; }
+        img:hover { transform: scale(1.02); }
+
+        /* --- CSS CHO VIDEO NHÚNG (MỚI) --- */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- KHU VỰC BÌNH LUẬN (Cũ) --- */
+        .comment-area { background: #e8f5e9; padding: 15px; border-radius: 10px; }
+        input, textarea { width: 90%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; }
+        
+        .btn-gui { background: #2d6a4f; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .btn-gui:hover { background: #1b4332; }
+
+        #comment-list { margin-top: 15px; }
+        .comment-item { 
+            background: white; padding: 15px; border-radius: 8px; 
+            border-left: 5px solid #2d6a4f; margin-bottom: 10px; 
+            position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .comment-item strong { color: #2d6a4f; display: block; }
+        .comment-time { font-size: 0.75em; color: #888; font-style: italic; }
+        .btn-xoa-mot { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #ff4d4d; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body onload="taiBinhLuan()">
+
+<header>
+    <h1>HÀNH ĐỘNG VÌ TRÁI ĐẤT XANH</h1>
+    <p>Môi trường sạch - Cuộc sống tươi đẹp</p>
+</header>
+
+<nav>
+    <a href="#tinh-trang">Tình Trạng</a>
+    <a href="#tac-hai">Tác Hại</a>
+    <a href="#giai-phap">Giải Pháp</a>
+    <a href="#thao-luan">Thảo Luận</a>
+</nav>
+
+<div class="container">
+    <section id="tinh-trang">
+        <h2>1. Tình trạng ô nhiễm hiện nay</h2>
+        <div class="grid">
+            <div class="col">
+                <p>Mỗi năm có hàng tỷ tấn rác thải nhựa đổ ra đại dương. Không khí tại các đô thị lớn luôn ở mức ô nhiễm nguy hại cho sức khỏe con người.</p>
+            </div>
+            <div class="col">
+                <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=500" alt="Ô nhiễm nhựa">
+            </div>
+        </div>
+    </section>
+
+    <section id="tac-hai">
+        <h2>2. Tác hại với đời sống</h2>
+        
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/CotUuqHpF8k" title="Tác hại ô nhiễm" allowfullscreen></iframe>
+        </div>
+        
+        <div class="grid">
+            <div class="col">
+                <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=500" alt="Biến đổi khí hậu">
+            </div>
+            <div class="col">
+                <ul>
+                    <li>Gây ra các bệnh hô hấp và tim mạch.</li>
+                    <li>Biến đổi khí hậu gây thiên tai khốc liệt.</li>
+                    <li>Làm cạn kiệt nguồn tài nguyên thiên nhiên.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="giai-phap">
+        <h2>3. Giải pháp của chúng ta</h2>
+        
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/YVRMu2g3TAM" title="Giải pháp môi trường" allowfullscreen></iframe>
+        </div>
+
+        <div class="grid">
+            <div class="col" style="background: #d1fae5; padding: 15px; border-radius: 10px;">
+                <h3>📢 Tuyên truyền</h3>
+                <p>Lan tỏa thông điệp bảo vệ môi trường qua mạng xã hội và các buổi ngoại khóa tại trường học.</p>
+            </div>
+            <div class="col" style="background: #fef3c7; padding: 15px; border-radius: 10px;">
+                <h3>🌱 Thực hiện</h3>
+                <p>Phân loại rác tại nguồn, hạn chế đồ nhựa dùng một lần và tích cực trồng cây xanh.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="thao-luan">
+        <h2>4. Góc thảo luận</h2>
+        <div class="comment-area">
+            <input type="text" id="txtTen" placeholder="Nhập tên của bạn...">
+            <textarea id="txtNoiDung" rows="3" placeholder="Ý kiến của bạn..."></textarea>
+            <button onclick="themBinhLuan()" class="btn-gui">Gửi ý kiến ngay</button>
+            <div id="comment-list"></div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // --- JAVASCRIPT (Cũ - Đã hoạt động tốt) ---
+    function hienThiBinhLuan() {
+        var dsHTML = document.getElementById("comment-list");
+        dsHTML.innerHTML = "";
+        var duLieu = JSON.parse(localStorage.getItem("dsBinhLuan")) || [];
+
+        duLieu.forEach((item, index) => {
+            var div = document.createElement("div");
+            div.className = "comment-item";
+            div.innerHTML = `
+                <button class="btn-xoa-mot" onclick="xoaMotBinhLuan(${index})">X</button>
+                <strong>${item.ten}</strong>
+                <span>${item.noiDung}</span>
+                <div class="comment-time">Gửi lúc: ${item.time}</div>
+            `;
+            dsHTML.appendChild(div);
+        });
+    }
+
+    function themBinhLuan() {
+        var ten = document.getElementById("txtTen").value;
+        var noiDung = document.getElementById("txtNoiDung").value;
+
+        if (ten == "" || noiDung == "") {
+            alert("Bạn ơi, hãy nhập tên và nội dung nhé!");
+            return;
+        }
+
+        var bayGio = new Date();
+        var thoiGian = bayGio.getHours() + ":" + (bayGio.getMinutes() < 10 ? '0' : '') + bayGio.getMinutes() + " - " + bayGio.getDate() + "/" + (bayGio.getMonth() + 1);
+
+        var cmtMoi = { ten: ten, noiDung: noiDung, time: thoiGian };
+        var danhSach = JSON.parse(localStorage.getItem("dsBinhLuan")) || [];
+        danhSach.unshift(cmtMoi);
+        localStorage.setItem("dsBinhLuan", JSON.stringify(danhSach));
+        hienThiBinhLuan();
+        document.getElementById("txtTen").value = "";
+        document.getElementById("txtNoiDung").value = "";
+    }
+
+    function taiBinhLuan() {
+        hienThiBinhLuan();
+    }
+
+    function xoaMotBinhLuan(index) {
+        var danhSach = JSON.parse(localStorage.getItem("dsBinhLuan"));
+        danhSach.splice(index, 1);
+        localStorage.setItem("dsBinhLuan", JSON.stringify(danhSach));
+        hienThiBinhLuan();
+    }
+</script>
+
+<footer style="text-align: center; padding: 20px; color: #666;">
+    <p>&copy; 2026 - Dự án học tập Tin học 12</p>
+</footer>
+
+</body>
+</html>
