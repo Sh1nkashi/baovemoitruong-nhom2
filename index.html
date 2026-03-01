@@ -120,14 +120,14 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-    // --- DÁN CẤU HÌNH CỦA BẠN VÀO ĐÂY ---
+    // --- ĐÂY LÀ ĐOẠN CẤU HÌNH CỦA BẠN ---
     const firebaseConfig = {
-      apiKey: "AIza...",
-      authDomain: "project-id.firebaseapp.com",
-      projectId: "project-id",
-      storageBucket: "project-id.appspot.com",
-      messagingSenderId: "...",
-      appId: "..."
+      apiKey: "AIzaSyAS-NTwtNgTncf4aCD43FaqqEbWa3R5iAQ",
+      authDomain: "bvmtnhom2.firebaseapp.com",
+      projectId: "bvmtnhom2",
+      storageBucket: "bvmtnhom2.appspot.com",
+      messagingSenderId: "920514306790",
+      appId: "1:920514306790:web:04b3ca07e79676711f9127"
     };
     
     // Khởi tạo Firebase
@@ -186,6 +186,15 @@
     function xoaBinhLuan(id) {
         if(confirm("Bạn muốn xóa bình luận này?")) {
             db.collection("binhLuan").doc(id).delete();
+        }
+    }
+</script>
+
+<footer style="text-align: center; padding: 20px; color: #666;">
+    <p>&copy; Project 3636 - Ae nhóm 2</p>
+</footer>
+</body>
+</html>
         }
     }
 </script>
