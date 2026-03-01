@@ -115,50 +115,81 @@
         </div>
     </section>
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
 <script>
-    function hienThiBinhLuan() {
-        var dsHTML = document.getElementById("comment-list");
-        dsHTML.innerHTML = "";
-        var duLieu = JSON.parse(localStorage.getItem("dsBinhLuan")) || [];
-        duLieu.forEach((item, index) => {
-            var div = document.createElement("div");
-            div.className = "comment-item";
-            div.innerHTML = `
-                <button class="btn-xoa-mot" onclick="xoaMotBinhLuan(${index})">X</button>
-                <strong>${item.ten}</strong>
-                <span>${item.noiDung}</span>
-                <div class="comment-time">Gửi lúc: ${item.time}</div>
-            `;
-            dsHTML.appendChild(div);
-        });
+    // --- DÁN CẤU HÌNH CỦA BẠN VÀO ĐÂY ---
+    const firebaseConfig = {
+      apiKey: "AIza...",
+      authDomain: "project-id.firebaseapp.com",
+      projectId: "project-id",
+      storageBucket: "project-id.appspot.com",
+      messagingSenderId: "...",
+      appId: "..."
+    };
+    
+    // Khởi tạo Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // --- HÀM TẢI BÌNH LUẬN (Realtime) ---
+    function taiBinhLuan() {
+        // Lấy dữ liệu sắp xếp theo thời gian mới nhất
+        db.collection("binhLuan").orderBy("createdAt", "desc")
+            .onSnapshot((snapshot) => {
+                let dsHTML = document.getElementById("comment-list");
+                dsHTML.innerHTML = "";
+                
+                snapshot.forEach((doc) => {
+                    let item = doc.data();
+                    let div = document.createElement("div");
+                    div.className = "comment-item";
+                    div.innerHTML = `
+                        <button class="btn-xoa-mot" onclick="xoaBinhLuan('${doc.id}')">X</button>
+                        <strong>${item.ten}</strong>
+                        <span>${item.noiDung}</span>
+                        <div class="comment-time">Gửi lúc: ${item.time}</div>
+                    `;
+                    dsHTML.appendChild(div);
+                });
+            });
     }
+
+    // --- HÀM THÊM BÌNH LUẬN ---
     function themBinhLuan() {
-        var ten = document.getElementById("txtTen").value;
-        var noiDung = document.getElementById("txtNoiDung").value;
-        if (ten == "" || noiDung == "") {
+        let tenInput = document.getElementById("txtTen");
+        let noiDungInput = document.getElementById("txtNoiDung");
+        
+        if (tenInput.value == "" || noiDungInput.value == "") {
             alert("Bạn ơi, hãy nhập tên và nội dung nhé!");
             return;
         }
-        var bayGio = new Date();
-        var thoiGian = bayGio.getHours() + ":" + (bayGio.getMinutes() < 10 ? '0' : '') + bayGio.getMinutes() + " - " + bayGio.getDate() + "/" + (bayGio.getMonth() + 1);
-        var cmtMoi = { ten: ten, noiDung: noiDung, time: thoiGian };
-        var danhSach = JSON.parse(localStorage.getItem("dsBinhLuan")) || [];
-        danhSach.unshift(cmtMoi);
-        localStorage.setItem("dsBinhLuan", JSON.stringify(danhSach));
-        hienThiBinhLuan();
-        document.getElementById("txtTen").value = "";
-        document.getElementById("txtNoiDung").value = "";
+
+        let bayGio = new Date();
+        let thoiGian = bayGio.getHours() + ":" + (bayGio.getMinutes() < 10 ? '0' : '') + bayGio.getMinutes() + " - " + bayGio.getDate() + "/" + (bayGio.getMonth() + 1);
+
+        // Lưu dữ liệu lên Firebase
+        db.collection("binhLuan").add({
+            ten: tenInput.value,
+            noiDung: noiDungInput.value,
+            time: thoiGian,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp() // Lưu thời gian để sắp xếp
+        });
+
+        tenInput.value = "";
+        noiDungInput.value = "";
     }
-    function taiBinhLuan() {
-        hienThiBinhLuan();
-    }
-    function xoaMotBinhLuan(index) {
-        var danhSach = JSON.parse(localStorage.getItem("dsBinhLuan"));
-        danhSach.splice(index, 1);
-        localStorage.setItem("dsBinhLuan", JSON.stringify(danhSach));
-        hienThiBinhLuan();
+
+    // --- HÀM XÓA BÌNH LUẬN ---
+    function xoaBinhLuan(id) {
+        if(confirm("Bạn muốn xóa bình luận này?")) {
+            db.collection("binhLuan").doc(id).delete();
+        }
     }
 </script>
+
 <footer style="text-align: center; padding: 20px; color: #666;">
     <p>&copy; Project 3636 - Ae nhóm 2</p>
 </footer>
